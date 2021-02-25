@@ -1,12 +1,12 @@
 // server.js
 "use strict";
 const express = require("express");
-const bourbon = require("./bourbon.api");
+const ship = require("./shipstation.api");
 const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/", bourbon);
+app.use("/", ship);
 // define the port
 const DEFAULT_PORT = 3000;
 // Use Heroku's PORT or default to 3000.
