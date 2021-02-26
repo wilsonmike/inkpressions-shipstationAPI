@@ -1,14 +1,21 @@
 <div *ngFor="let item of shipmentCostOne; let i = index">
-    <div class="items">
-        <span>Order Number: {{ item?.orderNumber }}</span>
-        <span>Shipping Cost: {{ item?.shipmentCost }}</span>
-        <span>Ship Date: {{ item?.createDate }}</span>
-        <span>Ship Date: {{ item?.shipDate }}</span>
-        <div *ngIf="item?.shipmentItems">
-            <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.sku }}</li>
-            <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.name }}</li>
+    <mat-card class="mat-card">
+        <div class="items">
+            <span><strong>Order Number: {{ item?.orderNumber }}</strong></span>
+            <span>Shipping Cost: {{ item?.shipmentCost }}</span>
+            <span>Ship Date: {{ item?.createDate }}</span>
+            <span>Ship Date: {{ item?.shipDate }}</span>
+            <div *ngIf="item?.shipmentItems">
+                <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.name }}</li>
+                <!-- <li *ngFor="let subitem of item['shipmentItems']">
+                    <div *ngIf="subitem.name === 'DIRT-NC-NC-DTG-KobeBear10x12-M2500-ATHLETICHEATHER-L'">
+                        {{ subitem.name}}
+                    </div>
+                </li> -->
+            </div>
         </div>
-    </div>
+    </mat-card>
+    
 </div>
 <div class="sum">
     <span>{{ sum.toFixed(2) }}</span>

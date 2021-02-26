@@ -32,7 +32,12 @@ export class ShipmentsComponent implements OnInit {
   getShipments = () => {
     this.service.getShipments().subscribe((response) => {
       this.orders = response;
-      console.log(this.orders);
+      console.log(this.shipmentCostOne);
+      this.shipmentCostOne.filter((sku) => {
+        if (sku.shipmentItems !== null) {
+          // console.log(sku.shipmentItems.map());
+        }
+      });
     });
   }
 }

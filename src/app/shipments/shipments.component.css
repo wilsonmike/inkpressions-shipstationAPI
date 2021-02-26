@@ -3,3 +3,7 @@
     flex-direction: column;
     margin: 5%;
 }
+.mat-card {
+    margin: 2%;
+    width: 50%;
+}
