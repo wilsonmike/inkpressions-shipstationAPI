@@ -1,3 +1,15 @@
-<div *ngFor="let item of orders?.shipments">
-    <span>{{ item?.shipmentCost }}</span>
+<div *ngFor="let item of shipmentCostOne; let i = index">
+    <div class="items">
+        <span>Order Number: {{ item?.orderNumber }}</span>
+        <span>Shipping Cost: {{ item?.shipmentCost }}</span>
+        <span>Ship Date: {{ item?.createDate }}</span>
+        <span>Ship Date: {{ item?.shipDate }}</span>
+        <div *ngIf="item?.shipmentItems">
+            <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.sku }}</li>
+            <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.name }}</li>
+        </div>
+    </div>
+</div>
+<div class="sum">
+    <span>{{ sum.toFixed(2) }}</span>
 </div>
