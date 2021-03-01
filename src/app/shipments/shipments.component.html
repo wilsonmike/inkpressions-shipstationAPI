@@ -1,22 +1,42 @@
-<div *ngFor="let item of shipmentCostOne; let i = index">
-    <mat-card class="mat-card">
-        <div class="items">
-            <span><strong>Order Number: {{ item?.orderNumber }}</strong></span>
-            <span>Shipping Cost: {{ item?.shipmentCost }}</span>
-            <span>Ship Date: {{ item?.createDate }}</span>
-            <span>Ship Date: {{ item?.shipDate }}</span>
-            <div *ngIf="item?.shipmentItems">
-                <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.name }}</li>
-                <!-- <li *ngFor="let subitem of item['shipmentItems']">
-                    <div *ngIf="subitem.name === 'DIRT-NC-NC-DTG-KobeBear10x12-M2500-ATHLETICHEATHER-L'">
-                        {{ subitem.name}}
-                    </div>
-                </li> -->
+<div class="container">
+    <div class="sum">
+        <mat-card class="main-header mat-elevation-z0">
+            <img class="tdl-logo" src="./assets/tdl.png" />
+        </mat-card>
+        <mat-card class="stats mat-elevation-z0">
+            <div class="overall-stats">
+                <h6 class="shipping-header"><strong>Total Shipping:</strong></h6>
+            <span class="sum-total">${{ sum.toFixed(2) }}</span>
+            <h6 class="shipping-header"><strong>Total Fulfillment:</strong></h6>
+            <span class="sum-total">${{ fulfillment.toFixed(2) }}</span>
+            <h6 class="shipping-header"><strong>Total All:</strong></h6>
+            <span class="sum-total">${{ grandTotal.toFixed(2) }}</span>
             </div>
-        </div>
+        </mat-card>
+    </div>
+    <mat-card class="mat-elevation-z0 search">
+        <h6 class="shipping-header"><strong>Search Orders</strong></h6>
+        <input class="input" type="text" [(ngModel)]="term">
     </mat-card>
+    <div *ngFor="let item of result |filter:term; let i = index">
+        <mat-card class="mat-card">
+            <div class="items">
+                <span><strong>Order Number: {{ item?.orderNumber }}</strong></span>
+                <span>Shipping Cost: {{ item?.shipmentCost }}</span>
+                <span>Ship Date: {{ item?.createDate }}</span>
+                <span>Ship Date: {{ item?.shipDate }}</span>
+                <div *ngIf="item?.shipmentItems">
+                    <span><strong>Line Items: </strong></span>
+                    <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.name }}</li>
+                    <!-- <li *ngFor="let subitem of item['shipmentItems']">
+                        <div *ngIf="subitem.name === 'DIRT-NC-NC-DTG-KobeBear10x12-M2500-ATHLETICHEATHER-L'">
+                            {{ subitem.name}}
+                        </div>
+                    </li> -->
+                </div>
+            </div>
+        </mat-card>
+        
+    </div>
     
-</div>
-<div class="sum">
-    <span>{{ sum.toFixed(2) }}</span>
 </div>
