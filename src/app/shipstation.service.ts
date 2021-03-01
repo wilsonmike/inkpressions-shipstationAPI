@@ -13,4 +13,7 @@ export class ShipstationService {
   getShipments = () => {
     return this.http.get(`${this.baseURL}/shipments`);
   }
+  getLine = () => {
+    return this.http.get(`${this.baseURL}/lineitems`);
+  }
 }

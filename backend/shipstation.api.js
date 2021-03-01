@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require("express");
 const ship = express.Router();
+const pool = require("./connection");
 const key = process.env.API_KEY;
 const secret = process.env.API_SECRET;
 const fetch = require('node-fetch');
@@ -41,18 +42,26 @@ fetch('https://ssapi.shipstation.com/shipments?createDateStart=2021-01-01&storeI
 }).then(function (data) {
 	// Log the data to the console
     shipments = data;
-	// You would do something with both sets of data here
-	console.log(shipments);
+	//  do something with both sets of data here
+	// console.log(shipments);
 }).catch(function (error) {
 	// if there's an error, log it
 	console.log(error);
 });
+
+//api routes including pg data
 
 
 ship.get('/shipments', function(req,res) {
     return res.json(shipments);
 })
 
-
+ship.get('/lineitems', (req,res) => {
+    let query = `select * from fbtable`;
+    pool.query(query).then((response) => {
+        res.json(response.rows);
+        // console.log(response.rows);
+    })
+})
 
 module.exports = ship; 

@@ -21,6 +21,11 @@ h6 {
   background: transparent;
   border-bottom: 1px solid black;
 }
+.main-table {
+    max-height:42vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
 .shipping-header {
     font-size: 16px;
 }
@@ -41,4 +46,14 @@ h6 {
 .overall-stats {
     display: flex;
     justify-content: space-evenly;
+}
+.totallineitems {
+    display: flex;
+    margin: 3%;
+}
+.lineitemtotal {
+    margin-left: 2%;
+}
+.container-line {
+    margin-bottom: 200px;
 }

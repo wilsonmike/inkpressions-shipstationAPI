@@ -18,6 +18,9 @@ export class ShipmentsComponent implements OnInit {
   fulfillment = 0;
   term = '';
   grandTotal = 0;
+  lineitemtotal = 0;
+  lineX: any = [];
+  grandTotalX: any = [];
 
   constructor(private service: ShipstationService, private route: ActivatedRoute) { }
 
@@ -39,17 +42,34 @@ export class ShipmentsComponent implements OnInit {
       }
     });
     this.getShipments();
+    this.getLine();
   }
   getShipments = () => {
     this.service.getShipments().subscribe((response) => {
       this.orders = response;
       // console.log(this.shipmentCostOne);
-      this.shipmentCostOne.filter((sku) => {
-        if (sku.shipmentItems !== null) {
-          console.log(sku.shipmentItems.map((name) => {
-            return name.name;
-          }));
-        }
+      // this.shipmentCostOne.filter((sku) => {
+      //   if (sku.shipmentItems !== null) {
+      //     console.log(sku.shipmentItems.map((name) => {
+      //       if (name.name === '') {
+      //         this.lineitemtotal += 2;
+      //         console.log(this.lineitemtotal);
+      //       }
+      //     }));
+      //   }
+      // });
+    });
+  }
+  getLine = () => {
+    this.service.getLine().subscribe((response) => {
+      this.lineX = response;
+      this.lineX.splice(0, 1);
+      console.log(this.lineX);
+      this.lineX.map((total) => {
+        // console.log(total);
+        this.grandTotalX = Number(total.totalprice.replace(/[^0-9.-]+/g, '') * Number(total.qtysold));
+        this.lineitemtotal += this.grandTotalX;
+        return this.grandTotalX;
       });
     });
   }
