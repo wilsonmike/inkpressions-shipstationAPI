@@ -38,7 +38,7 @@ export class ShipmentsComponent implements OnInit {
       // console.log(this.shipmentCostOne);
       for (const item of this.result) {
         this.sum += item.shipmentCost;
-        this.fulfillment += 1.70;
+        this.fulfillment += 1.40;
         this.grandTotal = this.sum + this.fulfillment;
       }
     });
