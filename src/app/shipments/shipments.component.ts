@@ -16,6 +16,7 @@ export class ShipmentsComponent implements OnInit {
   shipmentCostFour: any = [];
   sum = 0;
   fulfillment = 0;
+  masterTotal = 0;
   term = '';
   grandTotal = 0;
   lineitemtotal = 0;
@@ -33,8 +34,8 @@ export class ShipmentsComponent implements OnInit {
       });
       // this.result = this.shipmentCostOne;
       this.result.sort(( a , b ) => (a.orderNumber > b.orderNumber) ? 1 : -1);
-      console.log(this.result);
-      console.log(this.shipmentCostOne);
+      // console.log(this.result);
+      // console.log(this.shipmentCostOne);
       for (const item of this.result) {
         this.sum += item.shipmentCost;
         this.fulfillment += 1.70;
@@ -64,11 +65,12 @@ export class ShipmentsComponent implements OnInit {
     this.service.getLine().subscribe((response) => {
       this.lineX = response;
       this.lineX.splice(0, 1);
-      console.log(this.lineX);
+      // console.log(this.lineX);
       this.lineX.map((total) => {
         // console.log(total);
         this.grandTotalX = Number(total.totalprice.replace(/[^0-9.-]+/g, '') * Number(total.qtysold));
         this.lineitemtotal += this.grandTotalX;
+        this.masterTotal = this.grandTotal + this.lineitemtotal;
         return this.grandTotalX;
       });
     });

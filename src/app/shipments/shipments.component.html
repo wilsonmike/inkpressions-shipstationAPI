@@ -4,13 +4,17 @@
             <img class="tdl-logo" src="./assets/tdl.png" />
         </mat-card>
         <mat-card class="stats mat-elevation-z0">
+            <h6 class="shipping-header month">| January 2021 |</h6>
             <div class="overall-stats">
-                <h6 class="shipping-header"><strong>Total Shipping:</strong></h6>
-            <span class="sum-total">${{ sum.toFixed(2) }}</span>
-            <h6 class="shipping-header"><strong>Total Fulfillment:</strong></h6>
-            <span class="sum-total">${{ fulfillment.toFixed(2) }}</span>
+               
+                <h6 class="shipping-header"><strong>Shipping:</strong></h6>
+            <span class="sum-total">${{ sum.toLocaleString(undefined, {minimumFractionDigits: 2}) }}</span>
+            <h6 class="shipping-header"><strong>Fulfillment:</strong></h6>
+            <span class="sum-total">${{ fulfillment.toLocaleString(undefined, {minimumFractionDigits: 2}) }}</span>
+            <h6 class="shipping-header"><strong>Line Items:</strong></h6>
+            <span class="sum-total">${{ lineitemtotal.toLocaleString(undefined, {minimumFractionDigits: 2}) }}</span>
             <h6 class="shipping-header"><strong>Total All:</strong></h6>
-            <span class="sum-total">${{ grandTotal.toFixed(2) }}</span>
+            <span class="sum-total">${{ masterTotal.toLocaleString(undefined, {minimumFractionDigits: 2}) }}</span>
             </div>
         </mat-card>
     </div>
@@ -41,14 +45,13 @@
     </div>
     <div class="container-line">
     <div class="totallineitems">
-        <h6 class="shipping-header"><strong>Total Line Items:</strong></h6>
-        <span class="lineitemtotal">${{ lineitemtotal.toFixed(2) }}</span>
+        <h6 class="shipping-header"><strong>Line Item Data</strong></h6>
     </div>
         <div class="main-table">
             <div *ngFor="let item of lineX">
                 <mat-card>
                     <div class="items">
-                        <span>Sku: {{ item?.aliassku }}</span>
+                        <span><strong>Sku: {{ item?.aliassku }}</strong></span>
                         <span>Description: {{ item?.descriptionl }}</span>
                         <span>Quantity Sold: {{ item?.qtysold }}</span>
                         <span>Total Sales: {{ item?.totalsales }}</span>

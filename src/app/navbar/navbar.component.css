@@ -5,8 +5,10 @@
 .navbar {
     display: flex;
     align-items: center;
+    background-color: white;
 }
 .navbar-brand {
+    margin-left: 25%;
     color: white;
 }
 .ink {
