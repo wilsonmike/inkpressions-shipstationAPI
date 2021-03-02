@@ -1,5 +1,7 @@
 {
-  "engines": { "node": "12.x" },
+  "engines": {
+    "node": "12.x"
+  },
   "name": "backend",
   "version": "1.0.0",
   "description": "",
@@ -9,5 +11,11 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
 }
