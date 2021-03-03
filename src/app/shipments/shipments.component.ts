@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { ShipstationService } from '../shipstation.service';
 
 @Component({
@@ -8,12 +9,6 @@ import { ShipstationService } from '../shipstation.service';
   styleUrls: ['./shipments.component.css']
 })
 export class ShipmentsComponent implements OnInit {
-  orders: any = [];
-  result: any = [];
-  shipmentCostOne: any = [];
-  shipmentCostTwo: any = [];
-  shipmentCostThree: any = [];
-  shipmentCostFour: any = [];
   sum = 0;
   fulfillment = 0;
   masterTotal = 0;
@@ -22,44 +17,31 @@ export class ShipmentsComponent implements OnInit {
   lineitemtotal = 0;
   lineX: any = [];
   grandTotalX: any = [];
+  // new naming convention
+  startArray = [];
+  totalArray = [];
+  totalArrayFiltered = [];
+  shippingTotal = 0;
 
   constructor(private service: ShipstationService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.service.getShipments().subscribe((response) => {
-      this.orders = response;
-      this.shipmentCostOne = this.orders[0].shipments.concat(this.orders[1].shipments, this.orders[2].shipments, this.orders[3].shipments);
-      this.result = this.shipmentCostOne.filter((order) => {
-        return !order.shipDate.includes('2020');
+    combineLatest([this.service.getLine1(), this.service.getLine2(), this.service.getLine3(), this.service.getLine4()]).subscribe((res) => {
+      this.startArray = res;
+      // tslint:disable-next-line:max-line-length
+      this.totalArray = this.startArray[0].shipments.concat(this.startArray[1].shipments, this.startArray[2].shipments, this.startArray[3].shipments);
+      this.totalArrayFiltered = this.totalArray.filter((item) => {
+        return !item.shipDate.includes('2020');
       });
-      // this.result = this.shipmentCostOne;
-      this.result.sort(( a , b ) => (a.orderNumber > b.orderNumber) ? 1 : -1);
-      // console.log(this.result);
-      // console.log(this.shipmentCostOne);
-      for (const item of this.result) {
+      this.totalArrayFiltered.sort(( a , b) => (a.orderNumber > b.orderNumber) ? 1 : -1);
+      for (const item of this.totalArrayFiltered) {
         this.sum += item.shipmentCost;
         this.fulfillment += 1.40;
-        this.grandTotal = this.sum + this.fulfillment;
+        this.shippingTotal = this.sum + this.fulfillment;
+        this.masterTotal = this.shippingTotal + this.lineitemtotal;
       }
     });
-    this.getShipments();
     this.getLine();
-  }
-  getShipments = () => {
-    this.service.getShipments().subscribe((response) => {
-      this.orders = response;
-      // console.log(this.shipmentCostOne);
-      // this.shipmentCostOne.filter((sku) => {
-      //   if (sku.shipmentItems !== null) {
-      //     console.log(sku.shipmentItems.map((name) => {
-      //       if (name.name === '') {
-      //         this.lineitemtotal += 2;
-      //         console.log(this.lineitemtotal);
-      //       }
-      //     }));
-      //   }
-      // });
-    });
   }
   getLine = () => {
     this.service.getLine().subscribe((response) => {
@@ -70,7 +52,7 @@ export class ShipmentsComponent implements OnInit {
         // console.log(total);
         this.grandTotalX = Number(total.totalprice.replace(/[^0-9.-]+/g, '') * Number(total.qtysold));
         this.lineitemtotal += this.grandTotalX;
-        this.masterTotal = this.grandTotal + this.lineitemtotal;
+        // this.masterTotal = this.shippingTotal + this.lineitemtotal;
         return this.grandTotalX;
       });
     });

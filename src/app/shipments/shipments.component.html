@@ -23,7 +23,7 @@
         <input class="input" type="text" [(ngModel)]="term">
     </mat-card>
     <div class="main-table">
-        <div *ngFor="let item of result |filter:term; let i = index">
+        <div *ngFor="let item of totalArrayFiltered |filter:term; let i = index">
             <mat-card class="mat-card">
                 <div class="items">
                     <span><strong>Order Number: {{ item?.orderNumber }}</strong></span>
@@ -33,11 +33,6 @@
                     <div *ngIf="item?.shipmentItems">
                         <span><strong>Line Items: </strong></span>
                         <li *ngFor="let subitem of item['shipmentItems']">{{ subitem?.name }}</li>
-                        <!-- <li *ngFor="let subitem of item['shipmentItems']">
-                            <div *ngIf="subitem.name === 'DIRT-NC-NC-DTG-KobeBear10x12-M2500-ATHLETICHEATHER-L'">
-                                {{ subitem.name}}
-                            </div>
-                        </li> -->
                     </div>
                 </div>
             </mat-card>
